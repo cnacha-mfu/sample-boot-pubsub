@@ -55,8 +55,8 @@ public class BorrowController {
 
         // TODO: (step 1) Publish the event:
         //
-        //   kafkaTemplate.send(topicName, borrowJson);
-        //   LOGGER.info("published to {}: {}", topicName, borrowJson);
+        kafkaTemplate.send(topicName, borrowJson);
+        LOGGER.info("published to {}: {}", topicName, borrowJson);
         //
         // One line does the work. Note what the line does NOT do: it does not
         // wait for anybody to read the event, and it cannot know who will.

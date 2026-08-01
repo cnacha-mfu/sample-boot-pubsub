@@ -239,6 +239,35 @@ Jackson — both are fine.
 
 ---
 
+## Class challenge — a third listener
+
+The library wants to know who its most active members are.
+
+Build **library-activity-service** (port 8203): it subscribes to the same
+`borrows` topic and counts borrows **per member**, the way popularity-service
+counts them per book. Show the counts on `GET /activity`, or copy the little
+auto-refresh page too.
+
+Rules:
+
+- Copy `library-popularity-service` and change what needs changing. It is the
+  same pattern on purpose - you should not need any new idea.
+- Choose a **new group id**. (Reuse `popularity-group` and watch what happens
+  to the two services' pages. That is not a bug - explain it.)
+- **Do not touch borrow-service.** It must not even be restarted.
+
+When your service works, answer one question: **how many lines of the producer
+changed to support a third subscriber?**
+
+That number is the whole lesson. Last week, adding a caller meant the callee had
+to be found, be up, and answer in time. Today, adding a subscriber is invisible
+to everyone else in the system.
+
+Extra credit: start your service LAST, after posting some borrows - does it see
+the old events or only new ones? Which property decides that?
+
+---
+
 ## If something breaks
 
 | Symptom | Cause |

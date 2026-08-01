@@ -49,7 +49,19 @@ public class BorrowPlacedListener {
     //            popularityRepository.save(entry);
     //
     //       Then watch http://localhost:8202/ while you post borrows.
+    @KafkaListener(topics = "${app.kafka.topic:borrows}", groupId = "popularity-group")
     public void onBorrowPlaced(ConsumerRecord<String, String> record) throws Exception {
         LOGGER.info("received from topic {}: {}", record.topic(), record.value());
+
+        JsonNode event = objectMapper.readTree(record.value());
+        String memberName = event.get("memberName").asText();
+        String bookTitle = event.get("bookTitle").asText();
+
+        BookPopularity entry = popularityRepository.findByBookTitle(bookTitle);
+        if (entry == null) {
+            entry = new BookPopularity(bookTitle, 0);
+        }
+        entry.setBorrowCount(entry.getBorrowCount() + 1);
+        popularityRepository.save(entry);
     }
 }
