@@ -239,32 +239,35 @@ Jackson — both are fine.
 
 ---
 
-## Class challenge — a third listener
+## โจทย์ท้าทายในคาบ — เพิ่ม listener อีกหนึ่งตัว
 
-The library wants to know who its most active members are.
+ห้องสมุดอยากรู้ว่า สมาชิกคนไหนยืมหนังสือบ่อยที่สุด
 
-Build **library-activity-service** (port 8203): it subscribes to the same
-`borrows` topic and counts borrows **per member**, the way popularity-service
-counts them per book. Show the counts on `GET /activity`, or copy the little
-auto-refresh page too.
+ให้สร้าง **library-activity-service** (port 8203): subscribe topic `borrows`
+เดิม แล้วนับจำนวนการยืม **ต่อสมาชิกหนึ่งคน** แบบเดียวกับที่ popularity-service
+นับต่อหนังสือหนึ่งเล่ม แสดงผลผ่าน `GET /activity` หรือจะคัดลอกหน้าเว็บ
+auto-refresh มาใช้ด้วยก็ได้
 
-Rules:
+กติกา:
 
-- Copy `library-popularity-service` and change what needs changing. It is the
-  same pattern on purpose - you should not need any new idea.
-- Choose a **new group id**. (Reuse `popularity-group` and watch what happens
-  to the two services' pages. That is not a bug - explain it.)
-- **Do not touch borrow-service.** It must not even be restarted.
+- คัดลอก `library-popularity-service` แล้วแก้เฉพาะส่วนที่จำเป็น — มันคือ
+  pattern เดิมโดยตั้งใจ ไม่ต้องใช้ความรู้ใหม่เลย
+- ตั้ง **group id ใหม่ของตัวเอง** (อยากลองใช้ `popularity-group` ซ้ำก็ได้
+  แล้วดูหน้าเว็บของทั้งสอง service — สิ่งที่เห็นไม่ใช่ bug
+  จงอธิบายให้ได้ว่าเกิดอะไรขึ้น)
+- **ห้ามแตะ borrow-service** แม้แต่ restart ก็ไม่ต้อง
 
-When your service works, answer one question: **how many lines of the producer
-changed to support a third subscriber?**
+เมื่อ service ของคุณทำงานได้แล้ว ให้ตอบคำถามหนึ่งข้อ:
+**producer ต้องแก้โค้ดกี่บรรทัด เพื่อรองรับ subscriber ตัวที่สาม?**
 
-That number is the whole lesson. Last week, adding a caller meant the callee had
-to be found, be up, and answer in time. Today, adding a subscriber is invisible
-to everyone else in the system.
+ตัวเลขนั้นคือบทเรียนทั้งหมดของวันนี้ — สัปดาห์ที่แล้ว การเพิ่มผู้เรียกหนึ่งราย
+หมายความว่าปลายทางต้องถูกหาเจอ ต้องออนไลน์อยู่ และต้องตอบให้ทัน
+แต่วันนี้ การเพิ่ม subscriber หนึ่งตัว ไม่มีใครที่เหลือในระบบต้องรับรู้เลย
 
-Extra credit: start your service LAST, after posting some borrows - does it see
-the old events or only new ones? Which property decides that?
+โจทย์เสริม: ลอง start service ของคุณ**เป็นตัวสุดท้าย**
+หลังจากที่ post การยืมไปแล้วหลายครั้ง — มันเห็น event เก่าทั้งหมด
+หรือเห็นเฉพาะ event ใหม่? property ตัวไหนใน application.properties
+เป็นตัวตัดสิน?
 
 ---
 
